@@ -58,6 +58,7 @@ void setup() {
       pinMode(Block_LED[i][j],OUTPUT);
     }
   }
+  Serial.begin(9600);
 }
 
 void loop() {
