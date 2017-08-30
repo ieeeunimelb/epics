@@ -1,7 +1,3 @@
-int blockNo;
-int r;
-int g;
-int b;
 String rr;
 String gg;
 String bb;
@@ -27,6 +23,6 @@ void SerialCom() {
   Serial.print(colour[0]);
   Serial.print(colour[1]);
   Serial.print(colour[2]);
-  Serial.print('e');
+  Serial.println('e');
 }
 

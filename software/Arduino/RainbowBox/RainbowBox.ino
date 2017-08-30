@@ -48,6 +48,11 @@ int Block31_LED[3] = {19,20,21};
 int Block32_LED[3] = {22,23,24};
 int Block33_LED[3] = {25,26,27};
 
+int blockNo;
+int r;
+int g;
+int b;
+
 int Block_LED[9][3]={Block11_LED[3],Block12_LED[3],Block13_LED[3],Block21_LED[3],
     Block22_LED[3],Block23_LED[3],Block31_LED[3],Block32_LED[3],Block33_LED[3]};
 
@@ -70,21 +75,21 @@ void loop() {
 
 void funLight1(){
   for (int i=0;i<9;i++){
-    int blockNo = i;
+    blockNo = i;
     int state=random(0, 100);
     float x=state/100.0;
     if (x<0.1){
-      int r=0;
-      int g=0;
-      int b=0;
+      r=0;
+      g=0;
+      b=0;
       SerialCom();
 //      for (int j=0;j<3;j++){
 //        digitalWrite(Block_LED[i][j],LOW);
 //      }
     } else {
-      int r=random(0, 255);
-      int g=random(0, 255);
-      int b=random(0, 255);
+      r=random(0, 255);
+      g=random(0, 255);
+      b=random(0, 255);
 //      analogWrite(Block_LED[i][0],r);
 //      analogWrite(Block_LED[i][1],g);
 //      analogWrite(Block_LED[i][2],b);
