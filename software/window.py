@@ -25,13 +25,9 @@ class led:
     def getHandler(self):
         return self.handler
 
-    def listening(self):
-        pass
-        #do serial communication
-
 class button:
     def __init__(self,master,led=None,serialObj = None,text = "     "):
-        self.led = led
+        self.led = led  #led num
         self.handler = Button(master, text = text ,command=self.transmit)
         self.serialObj = serialObj
 
@@ -39,7 +35,7 @@ class button:
         return self.handler
 
     def transmit(self):
-        pass
+        self.serialObj.write()
         #do serial communication
 
 class rotarySwitch:
@@ -65,14 +61,14 @@ class rotarySwitch:
 #this method takes a dict and fills it with
 #lists of 9 LEDs, 9 buttons, action button, reset button and 3 rotary switches
 #{"root","LEDS","buttons","action","reset","rotSwt"}
-def generateWindow(components,finish):
+def generateWindow(components,finish,serialObj):
     master = Tk()
     #the 9 LEDs and 9 buttons
     leds = []
     ledButtons = []
     for i in range(9):
-        leds.append(led(master))
-        ledButtons.append(button(master,leds[i]))
+        leds.append(led(master,serialObj))
+        ledButtons.append(button(master,i+1,serialObj=serialObj))
         if i<3:
             leds[i].getHandler().grid(row = 0,column = i)
             ledButtons[i].getHandler().grid(row=1,column = i)
@@ -88,9 +84,9 @@ def generateWindow(components,finish):
     separator_1.grid(row=7,columnspan=3,pady=15)
 
     #the action and reset button
-    action = button(master,text="ACTION")
+    action = button(master,text="ACTION",serialObj=serialObj)
     action.getHandler().grid(row=8,column=0)
-    reset = button(master,text="REST")
+    reset = button(master,text="REST",serialObj=serialObj)
     reset.getHandler().grid(row=8,column=2)
 
     #create a seperator
@@ -101,7 +97,7 @@ def generateWindow(components,finish):
     rotSwts = []
     VALUES = ((1,2,3),(4,5,6),(7,8,9))
     for i in range(3):
-        rotSwts.append(rotarySwitch(master,VALUES[i]))
+        rotSwts.append(rotarySwitch(master,VALUES[i],serialObj))
         rotSwts[i].getHandler().grid(row=10,column=i)
 
     separator_3 = Frame(height=2, bd=10,width=300, relief=SUNKEN,bg='black')
