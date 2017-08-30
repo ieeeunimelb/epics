@@ -19,7 +19,7 @@ void SerialCom() {
   
   // Serial communication
   Serial.print('s');
-  Serial.print(blockNo);
+  Serial.print((String)blockNo);
   Serial.print(colour[0]);
   Serial.print(colour[1]);
   Serial.print(colour[2]);
