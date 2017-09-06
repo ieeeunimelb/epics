@@ -8,5 +8,10 @@ void game1(){
   if (time-iniTime > fiveMin){
     // go back to funlight mode
   }
+
+  //read rotary switch
+  // do cases (difficulties)
+  
+//  switch 
 }
 
