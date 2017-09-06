@@ -3,7 +3,6 @@ String gg;
 String bb;
 String colour[3]={rr,gg,bb};
 
-
 void SerialCom() {
   // convert int r,g,b into a string of 3 characters
   int col[3]={r,g,b};
