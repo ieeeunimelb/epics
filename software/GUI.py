@@ -18,20 +18,6 @@ def changeColor(leds,finish,ser):
                 color = (red,green,blue)
                 leds[command[1]-48].turnOn(color)
 
-"""        try:
-            led = leds[randint(0,8)]
-            if led.state == led.OFF:
-                color = (randint(0,255),randint(0,255),randint(0,255))
-                led.turnOn(color)
-            else:
-                led.turnOff()
-
-            sleep(0.1)
-
-        except:
-            pass
-"""
-
 def main():
     ser = serial.Serial()
     ser.baudrate = 9600
