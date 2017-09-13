@@ -56,25 +56,13 @@ void game1(){
     //       digitalWrite(LEDS[i][j], HIGH);
     //       Serial.println(blocks[i]);
     //   }
-      SerialCom(blocks[i],100,100,100);
+      SerialCom(blocks[i],255,255,255);
       delay(1500);
-    //   for(int j=0;j<3;j++){
-    //       digitalWrite(LEDS[i][j], LOW);
-    //   }
-  }
-  for(int i=0;i<3;i++){
-    //   for(int j=0;j<3;j++){
-    //       digitalWrite(LEDS[i][j], HIGH);
-    //       Serial.println(blocks[i]);
-    //   }
-
     //   for(int j=0;j<3;j++){
     //       digitalWrite(LEDS[i][j], LOW);
     //   }
       SerialCom(blocks[i],0,0,0);
   }
-  Serial.println("done");
-
 }
 
 // int buttonPressed(){

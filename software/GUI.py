@@ -21,7 +21,7 @@ def changeColor(leds,finish,ser):
 def main():
     ser = serial.Serial()
     ser.baudrate = 9600
-    ser.port = 'COM7'
+    ser.port = 'COM9'
     ser.timeout = 1
     ser.writeTimeout = 2
     ser.open()
