@@ -2,7 +2,7 @@ unsigned long time;
 unsigned long iniTime;
 int blocks[3];
 
-#define HORIZON 0
+#define HORIZONTAL 0
 #define VERTICAL 1
 #define DIAGONAL 2
 
@@ -15,10 +15,10 @@ void game1(){
   // }
 
   //pick the right sequence of LEDS
-  int pattern = random(9);
+  int pattern = random(3);
   int* LEDS[3];
   switch (pattern){
-      case HORIZON:{
+      case HORIZONTAL:{
         int row = 3*random(3);
         for(int i=0;i<3;i++){
             LEDS[i] = Block_LED[row+i];
@@ -56,12 +56,12 @@ void game1(){
     //       digitalWrite(LEDS[i][j], HIGH);
     //       Serial.println(blocks[i]);
     //   }
-      SerialCom(blocks[i],125,125,125);
+      SerialCom(blocks[i],255,255,255);
       delay(1500);
     //   for(int j=0;j<3;j++){
     //       digitalWrite(LEDS[i][j], LOW);
     //   }
-      SerialCom(blocks[i],255,255,255);
+      SerialCom(blocks[i],0,0,0);
   }
 
   //read rotary switch
