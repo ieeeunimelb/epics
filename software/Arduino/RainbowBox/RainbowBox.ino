@@ -79,7 +79,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  funLight1();
-  //game1();
+  //funLight1();
+  game1();
   delay(500);
 }

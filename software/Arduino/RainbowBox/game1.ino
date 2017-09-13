@@ -56,12 +56,12 @@ void game1(){
     //       digitalWrite(LEDS[i][j], HIGH);
     //       Serial.println(blocks[i]);
     //   }
-      SerialCom(blocks[i],255,255,255);
+      SerialCom(blocks[i],125,125,125);
       delay(1500);
     //   for(int j=0;j<3;j++){
     //       digitalWrite(LEDS[i][j], LOW);
     //   }
-      SerialCom(blocks[i],0,0,0);
+      SerialCom(blocks[i],255,255,255);
   }
 }
 
