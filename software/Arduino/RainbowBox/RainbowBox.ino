@@ -1,3 +1,7 @@
+#include <StaticThreadController.h>
+#include <Thread.h>
+#include <ThreadController.h>
+
 //// for only one RGB LED
 //int redPin= 12;
 //int greenPin = 11;
@@ -48,19 +52,26 @@ int Block31_LED[3] = {19,20,21};
 int Block32_LED[3] = {22,23,24};
 int Block33_LED[3] = {25,26,27};
 
-int blockNo;
-int r;
-int g;
-int b;
+int NUM_LEDS = 9;
 
-int Block_LED[9][3]={Block11_LED[3],Block12_LED[3],Block13_LED[3],Block21_LED[3],
-    Block22_LED[3],Block23_LED[3],Block31_LED[3],Block32_LED[3],Block33_LED[3]};
+int* Block_LED[]={Block11_LED,Block12_LED,Block13_LED,Block21_LED,
+    Block22_LED,Block23_LED,Block31_LED,Block32_LED,Block33_LED};
+
+int buttons[] = {28,29,30,31,32,33,34,35,36};
+
 
 void setup() {
+  // if analog input pin 0 is unconnected, random analog
+  // noise will cause the call to randomSeed() to generate
+  // different seed numbers each time the sketch runs.
+  // randomSeed() will then shuffle the random function.
+  randomSeed(analogRead(0));
   // all LED pins as OUTPUT
+
   for (int i=0;i<9;i++){
+     pinMode(buttons[i], INPUT);
     for (int j=0;j<3;j++){
-      pinMode(Block_LED[i][j],OUTPUT);
+      pinMode((Block_LED[i])[j],OUTPUT);
     }
   }
   Serial.begin(9600);
@@ -68,8 +79,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  funLight1();
+
+  game1();
   delay(500);
 }
-
-
