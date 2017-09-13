@@ -63,6 +63,11 @@ void game1(){
     //   }
       SerialCom(blocks[i],255,255,255);
   }
+
+  //read rotary switch
+  // do cases (difficulties)
+  
+//  switch 
 }
 
 // int buttonPressed(){
