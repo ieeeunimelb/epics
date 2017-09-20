@@ -25,8 +25,9 @@ void game1(){
               SerialRead(command,bytesReceive);
               if(command[0] == 'b' && (command[1]+'\0') == (game1Blocks[game1_counter]+48)){
                   game1_counter++; //pressed the right button, move the ptr to the next element
-              }else{
+              }else if(command[0] == 'b'){
                   //pressed the wrong button, produce a new pattern
+                  fail();
                   for(int i=0;i<3;i++){
                       SerialSend(4,255,0,0);
                       delay(500);
@@ -41,6 +42,7 @@ void game1(){
               gameLock = false;  //reset the lock
               game1_counter = 0;
               //do something to show that you win!
+              win();
               for(int i=0;i<3;i++){
                   SerialSend(4,0,255,0);
                   delay(500);

@@ -1,7 +1,7 @@
 #include <StaticThreadController.h>
 #include <Thread.h>
 #include <ThreadController.h>
-
+#include "musical_notes.h"
 //// for only one RGB LED
 //int redPin= 12;
 //int greenPin = 11;
@@ -39,6 +39,10 @@
 
 
 ///////////////////////////////////////////////////////////////////////////
+
+// For speaker
+int speakerPin = 52; // speaker connected to digital pin 9
+
 // all the following pins should be PWM
 #define FIVE_MIN  5*60*1000
 
@@ -91,7 +95,7 @@ int game1_current_mode = EASY;
 
 //for game 2
 int game2_counter = 0;
-int game2_current_mode; = EASY;
+int game2_current_mode = EASY;
 int game2_prev_mode = EASY;
 unsigned long game2_currentTime;
 unsigned long game2_iniTime;
@@ -109,6 +113,7 @@ void setup() {
       pinMode((Block_LED[i])[j],OUTPUT);
     }
   }
+  pinMode(52, OUTPUT);
   Serial.begin(19200);
   iniTime = millis();
 }
@@ -117,6 +122,7 @@ void loop() {
     currentTime = millis();
     if (currentTime-iniTime < FIVE_MIN){
         game1();
+        //win();
     }
 
 }
