@@ -103,8 +103,13 @@ void setup() {
     }
   }
   Serial.begin(19200);
+  iniTime = millis();
 }
 
 void loop() {
-    game1();
+    currentTime = millis();
+    if (currentTime-iniTime < FIVE_MIN){
+        game1();
+    }
+
 }

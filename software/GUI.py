@@ -2,6 +2,7 @@ from window import *
 from random import *
 from time import sleep
 import threading
+import logging
 import serial
 
 def changeColor(lists,leds,finish,ser):
@@ -21,8 +22,10 @@ def receiver(lists,finish,ser):
     while not finish[0]:
         if ser.readable():
             command = ser.read(13)
-            if len(command) != 0 and command[0] == ord('s'):
+            logging.debug(command)
+            if len(command) == 13 and command[0] == ord('s') and command[11] == ord('e'):
                 lists.append(command)
+
 
 def transmit(rotary,finish,ser):
     while not finish[0]:
@@ -46,10 +49,13 @@ def transmit(rotary,finish,ser):
             #print(ch)
             ser.write(ch.encode())
 
+
 def main():
+    logging.basicConfig(level=logging.DEBUG)
+    #logger.setLevel(logging.DEBUG)
     ser = serial.Serial()
     ser.baudrate = 19200
-    ser.port = 'COM4'
+    ser.port = 'COM10'
     ser.timeout = 1
     ser.writeTimeout = 2
     ser.open()
@@ -60,7 +66,7 @@ def main():
     components = {}
     mainThread = threading.Thread(target=generateWindow,args=(components,finish,ser))
     mainThread.start()
-    sleep(1)
+    sleep(0.5)
 
     transmitter = threading.Thread(target=transmit,args=(components['rotSwt'],finish,ser))
     transmitter.start()
@@ -75,17 +81,11 @@ def main():
     listener.join()
     transmitter.join()
     led.join()
-    # sleep(0.5)
     # while True:
-    #     print("mainThread ")
-    #     print(mainThread.isAlive())
-    #     print("listener ")
-    #     print(listener.isAlive())
-    #     print("transmitter ")
-    #     print(transmitter.isAlive())
-    #     print("Led ")
-    #     print(led.isAlive())
-    #     print("")
+    #     logging.debug("mainThread " + mainThread.isAlive())
+    #     logging.debug("listener "+listener.isAlive())
+    #     logging.debug("transmitter "+transmitter.isAlive())
+    #     logging.debug("Led "+led.isAlive())
     #     sleep(1)
 
 if __name__ == "__main__":

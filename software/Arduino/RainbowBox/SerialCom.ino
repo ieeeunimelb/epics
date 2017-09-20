@@ -21,7 +21,7 @@ void SerialRead(char* command, int bytes){
     Serial.readBytes(command,bytes);
     //if the command is from the rotary switch and due to the setting in the GUI.py file
     //it would only receive message when some states changed
-    if(command[0] == 'r'){  //'r' stands for rotary switch
+    if(command[0] == 'r' ){  //'r' stands for rotary switch
         //r1_2_3_e
         //check if the first rotary switch is changed
         if((command[2]+'\0') != 48 ){

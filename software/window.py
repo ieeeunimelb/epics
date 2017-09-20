@@ -1,5 +1,6 @@
 from tkinter import *
 import serial
+import logging
 
 #a LED class which creates a LED object
 class led:
@@ -46,6 +47,7 @@ class button:
             for i in range(6):
                 ch += 'e'
             self.serialObj.write(ch.encode())
+            logging.debug("send: "+ ch)
 
 class rotarySwitch:
     def __init__(self,master,no,value,serialObj = None):

@@ -1,5 +1,4 @@
 void game1(){
-  //check if this is the first time to run this game
   if(gameLock == false){
       game1_counter = 0;
       gameLock = true;  //lock the mode
@@ -14,7 +13,6 @@ void game1(){
           game1_hard();
           break;
       }
-
       //clean the buffer
       flush();
       //start timing
@@ -29,6 +27,12 @@ void game1(){
                   game1_counter++; //pressed the right button, move the ptr to the next element
               }else{
                   //pressed the wrong button, produce a new pattern
+                  for(int i=0;i<3;i++){
+                      SerialSend(4,255,0,0);
+                      delay(500);
+                      SerialSend(4,0,0,0);
+                      delay(500);
+                  }
                   gameLock = false;
                   game1_counter = 0;
               }
@@ -38,7 +42,7 @@ void game1(){
               game1_counter = 0;
               //do something to show that you win!
               for(int i=0;i<3;i++){
-                  SerialSend(4,255,255,255);
+                  SerialSend(4,0,255,0);
                   delay(500);
                   SerialSend(4,0,0,0);
                   delay(500);
