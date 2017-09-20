@@ -40,6 +40,7 @@
 
 ///////////////////////////////////////////////////////////////////////////
 // all the following pins should be PWM
+#define FIVE_MIN  5*60*1000
 
 // LED pins of each block
 int Block11_LED[3] = {1,2,3};
@@ -59,6 +60,34 @@ int* Block_LED[]={Block11_LED,Block12_LED,Block13_LED,Block21_LED,
 
 int buttons[] = {28,29,30,31,32,33,34,35,36};
 
+//default timeout is 5 mins, different game modes will overwrite it
+int timeout = FIVE_MIN;
+unsigned long currentTime;
+unsigned long iniTime;
+
+//for protocal
+#define bytesReceive 8
+char command[bytesReceive]; //used to store the command from serial communication
+
+//Every time initialise a game, this value need to be set to True
+//after the game finished, need to reset this to false
+int gameLock = false;
+
+//for game 1
+#define HORIZONTAL 0
+#define VERTICAL 1
+#define DIAGONAL 2
+#define ONE_MIN 60*1000
+#define EASY 1
+#define MEDIUM 2
+#define HARD 3
+int game1Blocks[9] = {0,1,2,3,4,5,6,7,8};  //to store the block No.
+int numOfBlocks;
+int game1_counter = 0;
+unsigned long Game1_currentTime;
+unsigned long Game1_iniTime;
+int game1_prev_mode = EASY;
+int game1_current_mode = EASY;
 
 void setup() {
   // if analog input pin 0 is unconnected, random analog
@@ -66,7 +95,6 @@ void setup() {
   // different seed numbers each time the sketch runs.
   // randomSeed() will then shuffle the random function.
   randomSeed(analogRead(0));
-  // all LED pins as OUTPUT
 
   for (int i=0;i<9;i++){
      pinMode(buttons[i], INPUT);
@@ -74,12 +102,9 @@ void setup() {
       pinMode((Block_LED[i])[j],OUTPUT);
     }
   }
-  Serial.begin(9600);
+  Serial.begin(19200);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  //funLight1();
-  game1();
-  delay(500);
+    game1();
 }

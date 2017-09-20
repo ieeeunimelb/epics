@@ -4,28 +4,57 @@ from time import sleep
 import threading
 import serial
 
-def changeColor(leds,finish,ser):
+def changeColor(lists,leds,finish,ser):
     #flush input and output buffer, discarding all its contents
     ser.flushInput()
     ser.flushOutput()
     while not finish[0]:
+        if len(lists)!=0:
+            command = lists.pop(0)
+            red = (command[2]-48)*100+(command[3]-48)*10+(command[4]-48)
+            green = (command[5]-48)*100+(command[6]-48)*10+(command[7]-48)
+            blue = (command[8]-48)*100+(command[9]-48)*10+(command[10]-48)
+            color = (red,green,blue)
+            leds[command[1]-48].turnOn(color)
+
+def receiver(lists,finish,ser):
+    while not finish[0]:
         if ser.readable():
             command = ser.read(13)
-            if command[0] == ord('s'):
-                red = (command[2]-48)*100+(command[3]-48)*10+(command[4]-48)
-                green = (command[5]-48)*100+(command[6]-48)*10+(command[7]-48)
-                blue = (command[8]-48)*100+(command[9]-48)*10+(command[10]-48)
-                color = (red,green,blue)
-                leds[command[1]-48].turnOn(color)
+            if len(command) != 0 and command[0] == ord('s'):
+                lists.append(command)
+
+def transmit(rotary,finish,ser):
+    while not finish[0]:
+        #construct the message
+        ch = 'r'
+        temp = rotary[0].checkValue()
+        if temp == "EASY":
+            ch += chr(1+48) + 'E'
+        elif temp == "MEDIUM":
+            ch += chr(1+48) + 'M'
+        elif temp == "HARD":
+            ch += chr(1+48) + 'H'
+        else:
+            ch += temp
+
+        ch += chr(2+48) + chr(0+48) + chr(3+48) + chr(0+48)
+
+        ch += 'e'
+        #check if any state changed
+        if ch[2] != chr(0+48) or ch[4] != chr(0+48) or ch[6] != chr(0+48):
+            #print(ch)
+            ser.write(ch.encode())
 
 def main():
     ser = serial.Serial()
-    ser.baudrate = 9600
-    ser.port = 'COM9'
+    ser.baudrate = 19200
+    ser.port = 'COM4'
     ser.timeout = 1
     ser.writeTimeout = 2
     ser.open()
     sleep(0.5)
+    lists = []
 
     finish = [False]
     components = {}
@@ -33,11 +62,31 @@ def main():
     mainThread.start()
     sleep(1)
 
-    listeningThread = threading.Thread(target=changeColor,args=(components['LED'],finish,ser))
-    listeningThread.start()
+    transmitter = threading.Thread(target=transmit,args=(components['rotSwt'],finish,ser))
+    transmitter.start()
+
+    listener = threading.Thread(target=receiver,args=(lists,finish,ser))
+    listener.start()
+
+    led = threading.Thread(target=changeColor,args=(lists,components['LED'],finish,ser))
+    led.start()
 
     mainThread.join()
-    listeningThread.join()
+    listener.join()
+    transmitter.join()
+    led.join()
+    # sleep(0.5)
+    # while True:
+    #     print("mainThread ")
+    #     print(mainThread.isAlive())
+    #     print("listener ")
+    #     print(listener.isAlive())
+    #     print("transmitter ")
+    #     print(transmitter.isAlive())
+    #     print("Led ")
+    #     print(led.isAlive())
+    #     print("")
+    #     sleep(1)
 
 if __name__ == "__main__":
     main()
