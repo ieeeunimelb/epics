@@ -16,11 +16,11 @@ void game1(){
       //clean the buffer
       flush();
       //start timing
-      Game1_iniTime = millis();
+      game1_iniTime = millis();
   }
   if(gameLock == true){
-      Game1_currentTime = millis();
-      if (Game1_currentTime-Game1_iniTime < ONE_MIN){
+      game1_currentTime = millis();
+      if (game1_currentTime-game1_iniTime < ONE_MIN){
           if(Serial.available()>0){
               SerialRead(command,bytesReceive);
               if(command[0] == 'b' && (command[1]+'\0') == (game1Blocks[game1_counter]+48)){

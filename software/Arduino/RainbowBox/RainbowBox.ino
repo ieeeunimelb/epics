@@ -84,10 +84,17 @@ int gameLock = false;
 int game1Blocks[9] = {0,1,2,3,4,5,6,7,8};  //to store the block No.
 int numOfBlocks;
 int game1_counter = 0;
-unsigned long Game1_currentTime;
-unsigned long Game1_iniTime;
+unsigned long game1_currentTime;
+unsigned long game1_iniTime;
 int game1_prev_mode = EASY;
 int game1_current_mode = EASY;
+
+//for game 2
+int game2_counter = 0;
+int game2_current_mode; = EASY;
+int game2_prev_mode = EASY;
+unsigned long game2_currentTime;
+unsigned long game2_iniTime;
 
 void setup() {
   // if analog input pin 0 is unconnected, random analog
