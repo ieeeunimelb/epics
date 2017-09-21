@@ -2,42 +2,7 @@
 #include <Thread.h>
 #include <ThreadController.h>
 #include "musical_notes.h"
-//// for only one RGB LED
-//int redPin= 12;
-//int greenPin = 11;
-//int bluePin = 10;
-//void setup() {
-//  pinMode(redPin, OUTPUT);
-//  pinMode(greenPin, OUTPUT);
-//  pinMode(bluePin, OUTPUT);
-//  Serial.begin(9600);
-//}
-//void loop() {
-//  int state=random(0, 100);
-//  float x=state/100.0;
-//  Serial.println(x);
-//    if (x<0.1){
-//      digitalWrite(redPin,LOW);
-//      digitalWrite(greenPin,LOW);
-//      digitalWrite(bluePin,LOW);
-//      Serial.println("OFF");
-//    } else {
-//      int r=random(0, 255);
-//      int g=random(0, 255);
-//      int b=random(0, 255);
-//      Serial.print(r);
-//      Serial.print(", ");
-//      Serial.print(g);
-//      Serial.print(", ");
-//      Serial.println(b);
-//      analogWrite(redPin,r);
-//      analogWrite(greenPin,g);
-//      analogWrite(bluePin,b);
-//    }
-//  delay(500);
-//}
-
-
+#include <math.h>
 ///////////////////////////////////////////////////////////////////////////
 
 // For speaker
@@ -45,6 +10,7 @@ int speakerPin = 52; // speaker connected to digital pin 9
 
 // all the following pins should be PWM
 #define FIVE_MIN  5*60*1000
+#define ONE_MIN 60*1000
 
 // LED pins of each block
 int Block11_LED[3] = {1,2,3};
@@ -77,11 +43,10 @@ char command[bytesReceive]; //used to store the command from serial communicatio
 //after the game finished, need to reset this to false
 int gameLock = false;
 
-//for game 1
+//for games
 #define HORIZONTAL 0
 #define VERTICAL 1
 #define DIAGONAL 2
-#define ONE_MIN 60*1000
 #define EASY 1
 #define MEDIUM 2
 #define HARD 3
@@ -92,8 +57,6 @@ unsigned long game1_currentTime;
 unsigned long game1_iniTime;
 int game1_prev_mode = EASY;
 int game1_current_mode = EASY;
-
-//for game 2
 int game2_counter = 0;
 int game2_current_mode = EASY;
 int game2_prev_mode = EASY;
@@ -114,15 +77,16 @@ void setup() {
     }
   }
   pinMode(52, OUTPUT);
-  Serial.begin(19200);
+  Serial.begin(115200);
   iniTime = millis();
 }
 
 void loop() {
     currentTime = millis();
     if (currentTime-iniTime < FIVE_MIN){
-        game1();
+        //game1();
         //win();
+        colorFlow();
     }
 
 }

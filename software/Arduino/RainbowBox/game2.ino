@@ -4,20 +4,26 @@
 //         gameLock = true;
 //         switch(game2_current_mode){
 //             case EASY:
-//             game1_easy();
+//             game2_easy();
 //             break;
 //             case MEDIUM:
-//             game1_medium();
+//             game2_medium();
 //             break;
 //             case HARD:
-//             game1_hard();
+//             game2_hard();
 //             break;
 //         }
 //         //clean the buffer
 //         flush();
 //         //start timing
-//         Game2_iniTime = millis();
-//     }else{
-//
+//         game2_iniTime = millis();
+//     }
+//     if(gameLock == true){
+//         game2_currentTime = millis();
+//         if (game1_currentTime-game1_iniTime < ONE_MIN){
+//             if(Serial.available()>0){
+//                 SerialRead(command,bytesReceive);
+//             }
+//         }
 //     }
 // }
