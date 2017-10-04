@@ -17,7 +17,7 @@ int linear[][] = {tbLinear, btLinear, lrLinear, rlLinear};
 
 void ColorFlow(){
     //randomly select flow setting 
-    randPinSequence = rand(0, 12);
+    int randPinSequence = random(0, 12);
 
     //generate the saturation and lightness
     saturation = random(50,100)/100.0; //below 0.5 will be ver dark
@@ -66,17 +66,20 @@ void ColorFlow(){
   if(randPinSequence<3){
       for(int i=0; i<3; i++){
         solidFlow();
+        delay(100);
       }
       
   } else if(3<=randPinSequence && randPinSequence<8){
     
     for(int i=0; i<3; i++){
         diagonalFlow(randPinSequence);
+        delay(100);
     }  
     
   }else if (randPinSequence<12){
     for(int i=0; i<3; i++){
         linearFlow(randPinSequence);
+        delat(100);
     } 
     
   
