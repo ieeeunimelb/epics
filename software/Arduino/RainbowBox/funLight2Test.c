@@ -109,7 +109,7 @@ void solidFlow(){
 
 void linearFlow(int randPinSequence){
 
-  int linearSeq[] = linear[randPinSequence%4];
+  int* linearSeq = linear[randPinSequence%4];
 
   //turn on the LEDs
     int temp = 360/space-2;
@@ -147,7 +147,7 @@ void linearFlow(int randPinSequence){
 
 void diagonalFlow(int randPinSequence){
     //randomly assign colour change pattern 
-  int diagonalSeq[] = diagonal[randPinSequence%4];
+  int* diagonalSeq = diagonal[randPinSequence%4];
 
   //turn on the LEDs
   int temp = 360/space-2;
