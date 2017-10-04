@@ -2,7 +2,7 @@ void funLight1(){
     int r;
     int g;
     int b;
-  for (int i=1;i<=9;i++){
+  for (int i=0;i<9;i++){
     int state=random(0, 100);
     float x=state/100.0;
     if (x<0){

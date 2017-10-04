@@ -47,37 +47,55 @@
 
     Alex Leone <acleone ~AT~ gmail.com>, 2009-02-03 */
 
-void setColour(int led, int red, int green, int blue)
+#include "SparkFun_Tlc5940.h"
+
+void setup()
 {
-  //LED numbers are given from 0-8
-  //TLC accepts index of each PWM output
-  
-  int tlcStartingIndex;
-  if (led < 0)
-    tlcStartingIndex = 0;
-  else if (led > 8)
-    tlcStartingIndex = 8*3;
-  else
-    tlcStartingIndex = led*3;
-    
-  Tlc.set(tlcStartingIndex, scaleValue(red)*0.75); //Scaled by 0.75 as Red LED is brighter
-  Tlc.set(tlcStartingIndex+1, scaleValue(green));
-  Tlc.set(tlcStartingIndex+2, scaleValue(blue));
+  /* Call Tlc.init() to setup the tlc.
+     You can optionally pass an initial PWM value (0 - 4095) for all channels.*/
+  Tlc.init();
 }
 
-int scaleValue(int val)
+/* This loop will create a Knight Rider-like effect if you have LEDs plugged
+   into all the TLC outputs.  NUM_TLCS is defined in "tlc_config.h" in the
+   library folder.  After editing tlc_config.h for your setup, delete the
+   Tlc5940.o file to save the changes. */
+
+void loop()
 {
-  // Output answer should be within range 0-4095
-  // Change brightness to increase PWM duty cycle
-  int answer;
-  int brightness = 10; 
-  
-  if (val < 0)
-    answer = 0;
-  else if (val > 255)
-    answer = brightness*255;
-  else 
-    answer = brightness*val;
-    
-  return answer;
+  int direction = 1;
+  for (int channel = 0; channel < NUM_TLCS * 16; channel += direction) {
+
+    /* Tlc.clear() sets all the grayscale values to zero, but does not send
+       them to the TLCs.  To actually send the data, call Tlc.update() */
+    Tlc.clear();
+
+    /* Tlc.set(channel (0-15), value (0-4095)) sets the grayscale value for
+       one channel (15 is OUT15 on the first TLC, if multiple TLCs are daisy-
+       chained, then channel = 16 would be OUT0 of the second TLC, etc.).
+
+       value goes from off (0) to always on (4095).
+
+       Like Tlc.clear(), this function only sets up the data, Tlc.update()
+       will send the data. */
+    if (channel == 0) {
+      direction = 1;
+    } else {
+      Tlc.set(channel - 1, 1000);
+    }
+    Tlc.set(channel, 4095);
+    if (channel != NUM_TLCS * 16 - 1) {
+      Tlc.set(channel + 1, 1000);
+    } else {
+      direction = -1;
+    }
+
+    /* Tlc.update() sends the data to the TLCs.  This is when the LEDs will
+       actually change. */
+    Tlc.update();
+
+    delay(75);
+  }
+
 }
+
