@@ -12,7 +12,8 @@ void SerialSend(int blockNo,int r,int g,int b) {
     }
   }
 
-  Serial.print('s'+(String)blockNo+colour[0]+colour[1]+colour[2]+'e'+'\n');
+  Serial.print('s'+(String)blockNo+colour[0]+colour[1]+colour[2]+'e');
+  //delay(1);
 }
 
 //this function should come up with an external statement to check whether the

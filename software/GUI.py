@@ -21,9 +21,9 @@ def changeColor(lists,leds,finish,ser):
 def receiver(lists,finish,ser):
     while not finish[0]:
         if ser.readable():
-            command = ser.read(13)
+            command = ser.read(12)
             logging.debug(command)
-            if len(command) == 13 and command[0] == ord('s') and command[11] == ord('e'):
+            if len(command) == 12 and command[0] == ord('s') and command[11] == ord('e'):
                 lists.append(command)
 
 
@@ -54,7 +54,7 @@ def main():
     logging.basicConfig(level=logging.DEBUG)
     #logger.setLevel(logging.DEBUG)
     ser = serial.Serial()
-    ser.baudrate = 19200
+    ser.baudrate = 115200
     ser.port = 'COM10'
     ser.timeout = 1
     ser.writeTimeout = 2
