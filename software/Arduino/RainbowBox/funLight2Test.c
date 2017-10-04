@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 float saturation,lightness;
 int spetrum[360][3];
 //The larger the space, the easier to distinguish the color in adjacent rows
@@ -199,14 +199,14 @@ int brDiagonal[] = {8, 7, 5, 2, 4, 6, 3, 1, 0}; //bottom left diagonal flow
 int blDiagonal[] = {6, 7, 3, 0, 4, 8, 5, 1, 0}; //bottom left diagonal flow
 int tbLinear[] = {0, 1, 2, 3, 4, 5, 6, 7, 8};  //top bottom horizontal flow
 int btLinear[] = {8, 7, 6, 5, 4, 3, 2, 1, 0}; //bottom top horizontal flow
-int lrLinear[] = {0, 3, 6, 1, 4, 7, 2, 5, 8}; //left right vertical flow 
-int rlLinear[] = {2, 5, 8, 1, 4, 7, 0, 3, 6}; // right left vertical flow 
+int lrLinear[] = {0, 3, 6, 1, 4, 7, 2, 5, 8}; //left right vertical flow
+int rlLinear[] = {2, 5, 8, 1, 4, 7, 0, 3, 6}; // right left vertical flow
 
 int diagonal[][] = {tlDiagonal, trDiagonal, brDiagonal, blDiagonal};
 int linear[][] = {tbLinear, btLinear, lrLinear, rlLinear};
 
 void ColorFlow(){
-    //randomly select flow setting 
+    //randomly select flow setting
     randPinSequence = rand(0, 12);
 
     //generate the saturation and lightness
@@ -257,21 +257,21 @@ void ColorFlow(){
       for(int i=0; i<3; i++){
         solidFlow();
       }
-      
+
   } else if(3<=randPinSequence && randPinSequence<8){
-    
+
     for(int i=0; i<3; i++){
         diagonalFlow(randPinSequence);
-    }  
-    
+    }
+
   }else if (randPinSequence<12){
     for(int i=0; i<3; i++){
         linearFlow(randPinSequence);
-    } 
-    
-  
+    }
+
+
   }
-    
+
 
 }
 
@@ -280,18 +280,18 @@ void solidFlow(){
     int temp = 360/space-2;
     for(int i=0;i<temp;i++){
       for(int i=1; i<=9; i++){
-        
+
         SerialSend(i,spetrum[space*i][0],spetrum[space*i][1],spetrum[space*i][2]);
-                
+
         }
       delay(50);
     }
 
     for(int i=temp-1;i>=0;i--){
       for(int i=1; i<=9; i++){
-        
+
         SerialSend(i,spetrum[temp-(space*i)][0],spetrum[temp-(space*i)][1],spetrum[temp-(space*i)][2]);
-                
+
         }
       delay(50);
     }
@@ -336,7 +336,7 @@ void linearFlow(int randPinSequence){
 
 
 void diagonalFlow(int randPinSequence){
-    //randomly assign colour change pattern 
+    //randomly assign colour change pattern
   int diagonalSeq[] = diagonal[randPinSequence%4];
 
   //turn on the LEDs
@@ -353,7 +353,7 @@ void diagonalFlow(int randPinSequence){
 
       SerialSend(diagonalSeq[6],spetrum[(3*space-1)+space*i][0],spetrum[(2*space-1)+space*i][1],spetrum[(2*space-1)+space*i][i]);
       SerialSend(diagonalSeq[7],spetrum[(3*space-1)+space*i][0],spetrum[(2*space-1)+space*i][1],spetrum[(2*space-1)+space*i][i]);
-      
+
       SerialSend(diagonalSeq[8],spetrum[(4*space-1)+space*i][0],spetrum[(2*space-1)+space*i][1],spetrum[(2*space-1)+space*i][i]);
       delay(50);
     }
@@ -370,7 +370,7 @@ void diagonalFlow(int randPinSequence){
 
       SerialSend(diagonalSeq[6],spetrum[temp-((3*space-1)+space*i)][0],spetrum[temp-((2*space-1)+space*i)][1],spetrum[temp-((2*space-1)+space*i)][i]);
       SerialSend(diagonalSeq[7],spetrum[temp-((3*space-1)+space*i)][0],spetrum[temp-((2*space-1)+space*i)][1],spetrum[temp-((2*space-1)+space*i)][i]);
-      
+
       SerialSend(diagonalSeq[8],spetrum[temp-((4*space-1)+space*i)][0],spetrum[temp-((2*space-1)+space*i)][1],spetrum[temp-((2*space-1)+space*i)][i]);
       delay(50);
 
