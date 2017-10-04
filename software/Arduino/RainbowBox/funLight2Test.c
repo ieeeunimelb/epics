@@ -12,8 +12,8 @@ int btLinear[] = {8, 7, 6, 5, 4, 3, 2, 1, 0}; //bottom top horizontal flow
 int lrLinear[] = {0, 3, 6, 1, 4, 7, 2, 5, 8}; //left right vertical flow 
 int rlLinear[] = {2, 5, 8, 1, 4, 7, 0, 3, 6}; // right left vertical flow 
 
-int diagonal[][] = {tlDiagonal, trDiagonal, brDiagonal, blDiagonal};
-int linear[][] = {tbLinear, btLinear, lrLinear, rlLinear};
+int **diagonal = {tlDiagonal, trDiagonal, brDiagonal, blDiagonal};
+int **linear = {tbLinear, btLinear, lrLinear, rlLinear};
 
 void ColorFlow(){
     //randomly select flow setting 
