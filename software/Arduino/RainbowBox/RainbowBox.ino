@@ -87,9 +87,10 @@ void setup() {
 void loop() {
     currentTime = millis();
     if (currentTime-iniTime < FIVE_MIN){
-        game1();
+        //game1();
         //win();
         //colorFlow();
+        ColorFlow2();
     }
 
 }
