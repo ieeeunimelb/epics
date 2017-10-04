@@ -22,12 +22,12 @@ int speakerPin = 52; // speaker connected to digital pin 9
 //int Block32_LED[3] = {22,23,24};
 //int Block33_LED[3] = {25,26,27};
 //
-//int NUM_LEDS = 9;
-//
 //int* Block_LED[]={Block11_LED,Block12_LED,Block13_LED,Block21_LED,
 //    Block22_LED,Block23_LED,Block31_LED,Block32_LED,Block33_LED};
 //
 //int buttons[] = {28,29,30,31,32,33,34,35,36};
+
+int NUM_LEDS = 9;
 
 //default timeout is 5 mins, different game modes will overwrite it
 int timeout = FIVE_MIN;
@@ -90,11 +90,10 @@ void setup() {
 
 void loop() {
     currentTime = millis();
-//    if (currentTime-iniTime < FIVE_MIN){
-////        game1();
+    if (currentTime-iniTime < FIVE_MIN){
+        game1();
 //        funLight1();
-//        //win();
-//    }
-    funLight1();
-    Tlc.update();
+
+        //win();
+    }
 }

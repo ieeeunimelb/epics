@@ -25,5 +25,6 @@ void funLight1(){
       setColour(i,r,g,b);
     }
   }
+  Tlc.update();
   delay(500);
 }
