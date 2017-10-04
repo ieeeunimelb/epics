@@ -55,7 +55,7 @@ def main():
     #logger.setLevel(logging.DEBUG)
     ser = serial.Serial()
     ser.baudrate = 115200
-    ser.port = 'COM4'
+    ser.port = 'COM10'
     ser.timeout = 1
     ser.writeTimeout = 2
     ser.open()

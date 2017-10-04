@@ -50,8 +50,10 @@ int gameLock = false;
 #define EASY 1
 #define MEDIUM 2
 #define HARD 3
-int game1Blocks[9] = {0,1,2,3,4,5,6,7,8};  //to store the block No.
+#define MAX_NUM_COLOR 4
+int gameBlocks[9] = {0,1,2,3,4,5,6,7,8};  //to store the block No.
 int numOfBlocks;
+int numOfColor; //for game 2
 int game1_counter = 0;
 unsigned long game1_currentTime;
 unsigned long game1_iniTime;
@@ -62,6 +64,7 @@ int game2_current_mode = EASY;
 int game2_prev_mode = EASY;
 unsigned long game2_currentTime;
 unsigned long game2_iniTime;
+int game2Color[MAX_NUM_COLOR][3];
 
 void setup() {
   // if analog input pin 0 is unconnected, random analog
@@ -84,9 +87,9 @@ void setup() {
 void loop() {
     currentTime = millis();
     if (currentTime-iniTime < FIVE_MIN){
-        //game1();
+        game1();
         //win();
-        colorFlow();
+        //colorFlow();
     }
 
 }
