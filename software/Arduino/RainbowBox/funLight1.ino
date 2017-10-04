@@ -11,7 +11,6 @@ void funLight1(){
       b=0;
 //      SerialSend(i,r,g,b);
       setColour(i,r,g,b);
-      Tlc.update();
 //      for (int j=0;j<3;j++){
 //        digitalWrite(Block_LED[i][j],LOW);
 //      }
@@ -24,8 +23,7 @@ void funLight1(){
 //      analogWrite(Block_LED[i][2],b);
 //      SerialSend(i,r,g,b);
       setColour(i,r,g,b);
-      Tlc.update();
     }
   }
-  delay(300);
+  delay(500);
 }

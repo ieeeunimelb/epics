@@ -96,4 +96,5 @@ void loop() {
 //        //win();
 //    }
     funLight1();
+    Tlc.update();
 }
