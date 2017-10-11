@@ -55,10 +55,12 @@
    int tlcStartingIndex;
    if (led < 0)
      tlcStartingIndex = 0;
-   else if (led > 8)
-     tlcStartingIndex = 8*3;
-   else
+   else if (led >= 0 && led<=4)
      tlcStartingIndex = led*3;
+   else if (led > 4)
+     tlcStartingIndex = led*3+1;
+   else
+     tlcStartingIndex = 8*3;
 
    Tlc.set(tlcStartingIndex, scaleValue(red)*0.75); //Scaled by 0.75 as Red LED is brighter
    Tlc.set(tlcStartingIndex+1, scaleValue(green));

@@ -11,10 +11,13 @@
        b=0;
  //      SerialSend(i,r,g,b);
        setColour(i,r,g,b);
+       Tlc.update();
  //      for (int j=0;j<3;j++){
  //        digitalWrite(Block_LED[i][j],LOW);
  //      }
      } else {
+       Serial.println("qqqqq");
+       Serial.println(i);
        r=random(0, 255);
        g=random(0, 255);
        b=random(0, 255);
@@ -23,6 +26,7 @@
  //      analogWrite(Block_LED[i][2],b);
  //      SerialSend(i,r,g,b);
        setColour(i,r,g,b);
+       Tlc.update();
      }
    }
    delay(500);
